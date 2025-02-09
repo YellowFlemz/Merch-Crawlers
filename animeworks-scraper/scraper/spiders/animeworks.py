@@ -11,7 +11,7 @@ class AnimeworksSpider(scrapy.Spider):
     def parse(self, response):
         # Regex pattern to extract date only in [DD/MM/YYYY, D/MM/YYYY, DD/M/YYYY, D/M/YYYY] format
         date_pattern = r"\d{1,2}/\d{1,2}/\d{4}"
-        # Scrapes product names, prices and release dates
+        # Scrapes product names, prices, release dates and images
         names = response.css("a.full-unstyled-link::text").getall()
         prices = response.css("span.price-item--regular::text").getall()
         release_dates = []
@@ -25,6 +25,7 @@ class AnimeworksSpider(scrapy.Spider):
                     release_dates.append(None)
             else:
                 release_dates.append(None)
+        images = [self._modify_url(source) for source in response.css("div.media > img::attr(src)").getall()]
 
         # Create a new item for each product
         for i, _ in enumerate(names):
@@ -35,6 +36,8 @@ class AnimeworksSpider(scrapy.Spider):
             item["price"] = prices[i].strip()
             # Release date (optional, may be None)
             item["release_date"] = release_dates[i]
+            # Image (required)
+            item["image"] = images[i]
             # Send item
             yield item
 
@@ -43,3 +46,10 @@ class AnimeworksSpider(scrapy.Spider):
         if next_page:
             next_page_url = response.urljoin(next_page)
             yield scrapy.Request(url=next_page_url, callback=self.parse)
+
+    # Function to format image URLs correctly
+    def _modify_url(self, url):
+        # Remove query params
+        url = re.sub(r'\?.*$', '', url)  # Remove query parameters
+        # Rmemove first two characters
+        return re.sub(r"^.{2}", "", url)
