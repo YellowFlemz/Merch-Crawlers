@@ -1,6 +1,7 @@
 #HTML Structure (animeworks)
 TITLE = a.full-unstyled-link::text
 PRICE = span.price-item--regular::text
+RELEASE_DATE = div.card-information -> h4::text
 PAGINATION = a.pagination__item-arrow (aria-label = "Next page")
 
 # Scrape URL in Shell

@@ -9,3 +9,4 @@ import scrapy
 class ProductsItem(scrapy.Item):
     name = scrapy.Field()
     price = scrapy.Field()
+    release_date = scrapy.Field()
