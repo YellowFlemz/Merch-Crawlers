@@ -1,0 +1,13 @@
+#HTML Structure (animeworks)
+TITLE = a.full-unstyled-link::text
+PRICE = span.price-item--regular::text
+
+# Scrape URL in Shell
+scrapy shell https://animeworks.com.au/collections/pre-orders
+
+titles = response.css("a.full-unstyled-link::text").getall()
+for title in titles:
+    print(title.strip())
+prices = response.css("span.price-item--regular::text").getall()
+for price in prices:
+    print(price.strip())
