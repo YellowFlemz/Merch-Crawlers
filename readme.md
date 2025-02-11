@@ -1,9 +1,9 @@
-# Merch Scrapers
+# Merch Crawlers
 
 Code Written by Shawn Lim
 
-A collection of scrapers for websites which sell merchandise/collectibles.
-Extracts numerous data points including title, price, images, urls etc. Differs per website
+A collection of crawlers for websites which sell merchandise/collectibles.
+Scrapes numerous data points including title, price, images, urls etc. Differs per website
 as they will contain different information.
 Inserts all data found into a local MongoDB instance.
 
