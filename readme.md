@@ -8,8 +8,8 @@ as they will contain different information.
 Inserts all data found into a local MongoDB instance.
 
 **Destination URLs:**
-https://animeworks.com.au/collections/pre-orders
-https://www.kaika.com.au/preorder
+- https://animeworks.com.au/collections/pre-orders
+- https://www.kaika.com.au/preorder
 
 **Important: Requires MongoDB to be run on local port with:**
 ```
