@@ -25,7 +25,8 @@ class AnimeworksSpider(scrapy.Spider):
                     release_dates.append(None)
             else:
                 release_dates.append(None)
-        images = [self._modify_url(source) for source in response.css("div.media > img::attr(src)").getall()]
+        images = [self._modify_image_url(source) for source in response.css("div.media > img::attr(src)").getall()]
+        urls = ["https://animeworks.com.au" + source for source in response.css("div.card__information > h3 > a::attr(href)").getall()]
 
         # Create a new item for each product
         for i, _ in enumerate(names):
@@ -38,6 +39,8 @@ class AnimeworksSpider(scrapy.Spider):
             item["release_date"] = release_dates[i]
             # Image (required)
             item["image"] = images[i]
+            # URL (required)
+            item["url"] = urls[i]
             # Send item
             yield item
 
@@ -48,7 +51,7 @@ class AnimeworksSpider(scrapy.Spider):
             yield scrapy.Request(url=next_page_url, callback=self.parse)
 
     # Function to format image URLs correctly
-    def _modify_url(self, url):
+    def _modify_image_url(self, url):
         # Remove query params
         url = re.sub(r'\?.*$', '', url)  # Remove query parameters
         # Rmemove first two characters
