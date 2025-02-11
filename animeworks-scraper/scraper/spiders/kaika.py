@@ -14,7 +14,7 @@ class KaikaSpider(scrapy.Spider):
         urls = response.css("div.caption > h3 > a::attr(href)").getall()
 
         # Create a new item for each product
-        for i in enumerate(names):
+        for i, _ in enumerate(names):
             item = KaikaItem()
             # Name (required)
             item["name"] = names[i].strip()

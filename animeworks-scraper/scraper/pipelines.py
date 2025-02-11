@@ -3,8 +3,7 @@ import pymongo
 from itemadapter import ItemAdapter
 from scrapy.exceptions import DropItem
 
-class AnimeworksPipeline:
-    COLLECTION_NAME = "animeworks"
+class WebsitesPipeline:
 
     def __init__(self, mongo_uri, mongo_db):
         self.mongo_uri = mongo_uri
@@ -25,11 +24,16 @@ class AnimeworksPipeline:
         self.client.close()
 
     def process_item(self, item, spider):
-        # Upsert items
+        # Select collection based on spider name
+        collection_name = spider.name
+        collection = self.db[collection_name]
+
+        # Hash ID of item
         item_id = self.compute_item_id(item)
         item_dict = ItemAdapter(item).asdict()
 
-        self.db[self.COLLECTION_NAME].update_one(
+        # Upsert item
+        collection.update_one(
             filter={"_id": item_id},
             update={"$set": item_dict},
             upsert=True
