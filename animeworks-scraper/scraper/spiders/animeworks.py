@@ -1,7 +1,6 @@
-import scrapy
 import re
-
-from scraper.items import ProductsItem
+import scrapy
+from scraper.items import AnimeworksItem
 
 class AnimeworksSpider(scrapy.Spider):
     name = "animeworks"
@@ -30,7 +29,7 @@ class AnimeworksSpider(scrapy.Spider):
 
         # Create a new item for each product
         for i, _ in enumerate(names):
-            item = ProductsItem()
+            item = AnimeworksItem()
             # Name (required)
             item["name"] = names[i].strip()
             # Price (required)
@@ -53,6 +52,6 @@ class AnimeworksSpider(scrapy.Spider):
     # Function to format image URLs correctly
     def _modify_image_url(self, url):
         # Remove query params
-        url = re.sub(r'\?.*$', '', url)  # Remove query parameters
+        url = re.sub(r'\?.*$', '', url)
         # Rmemove first two characters
         return re.sub(r"^.{2}", "", url)
