@@ -20,3 +20,9 @@ class KaikaItem(scrapy.Item):
     price = scrapy.Field()
     image = scrapy.Field()
     url = scrapy.Field()
+
+class HLJGoodSmileItem(scrapy.Item):
+    _id = scrapy.Field()
+    name = scrapy.Field()
+    image = scrapy.Field()
+    url = scrapy.Field()

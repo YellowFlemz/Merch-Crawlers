@@ -53,5 +53,5 @@ class AnimeworksSpider(scrapy.Spider):
     def _modify_image_url(self, url):
         # Remove query params
         url = re.sub(r'\?.*$', '', url)
-        # Rmemove first two characters
+        # Remove first two characters
         return re.sub(r"^.{2}", "", url)

@@ -1,4 +1,5 @@
 import random
+import logging
 # Scrapy settings for scraper project
 #
 # For simplicity, this file contains only settings considered important or
@@ -106,3 +107,7 @@ USER_AGENT = random.choice(USER_AGENT_LIST)
 # MongoDB settings
 MONGO_URI = "mongodb://localhost:27017"
 MONGO_DATABASE = "websites_db"
+
+# Suppress PyMongo's DEBUG logs
+logging.getLogger("pymongo").setLevel(logging.WARNING)
+logging.getLogger("pymongo.topology").setLevel(logging.WARNING)
